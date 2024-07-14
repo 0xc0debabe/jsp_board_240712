@@ -1,5 +1,7 @@
 package com.hmw.jsp.board;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -42,7 +44,7 @@ public class Rq {
         }
     }
 
-    public void writer(String str) {
+    public void appendBody(String str) {
 //        응답으로부터 getWriter
 
         try {
@@ -63,5 +65,19 @@ public class Rq {
         }
 
         return value;
+    }
+
+    public void setAttr(String name, Object value) {
+        req.setAttribute(name, value);
+    }
+
+    public void view(String path) {
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/jsp/" + path + ".jsp");
+
+        try {
+            requestDispatcher.forward(req, resp);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
