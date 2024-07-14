@@ -7,7 +7,6 @@ import java.util.List;
 
 public class ArticleController {
     public void showList(Rq rq) {
-        rq.appendBody("게시글");
         List<ArticleDto> articleDtos = new ArrayList<>();
 
         for (int i = 5; i >= 1; i--) {
