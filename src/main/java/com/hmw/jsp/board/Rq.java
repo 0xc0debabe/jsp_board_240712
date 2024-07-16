@@ -28,25 +28,19 @@ public class Rq {
 
     public int getIntParam(String paramName, int defaultValue) {
         String value = req.getParameter(paramName);
-//        req.getParameter는 요청으로부터 값을 받아옴(주소창에www.google.com/asdf?param=3) 이런거(아마)
 
         if (value == null) {
-//            value가 null일 경우 디폴트 리턴(int로 리턴)
             return defaultValue;
         }
 
         try {
             return Integer.parseInt(value);
-//            value를 Int로 반환하는데 www.google.com/asdf?param=3에서 param=32ab로 올 수도 있음
         } catch (NumberFormatException e) {
-//            그것을 numberFormatException을 통해서 예외처리
             return defaultValue;
         }
     }
 
     public void appendBody(String str) {
-//        응답으로부터 getWriter
-
         try {
             resp.getWriter().append(str);
         } catch (IOException e) {
@@ -55,11 +49,11 @@ public class Rq {
 
     }
 
+
+
     public String getParam(String paramName, String defaultValue) {
-//        요청으로부터 겟파라미터해서 저장
         String value = req.getParameter(paramName);
 
-//        value == null일때 디폴트 www.google.com/asdf 로 입력하면 디폴트인듯
         if (value == null) {
             return defaultValue;
         }
@@ -78,6 +72,42 @@ public class Rq {
             requestDispatcher.forward(req, resp);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public String getPath() {
+        return req.getRequestURI();
+    }
+
+    public String getMethod() {
+        return req.getMethod();
+    }
+
+    public String getActionPath() {
+        String[] bits = req.getRequestURI().split("/");
+        return "/%s/%s/%s".formatted(bits[1], bits[2], bits[3]);
+    }
+    public long getLongPathValueByIndex(int index, int defaultValue) {
+        String value = getPathValueByIndex(index, null);
+
+        if (value == null) {
+            return defaultValue;
+        }
+
+        try {
+            return Long.parseLong(value);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    private String getPathValueByIndex(int index, String defaultValue) {
+        String[] bits = req.getRequestURI().split("/");
+
+        try {
+            return bits[4 + index];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return defaultValue;
         }
     }
 }
