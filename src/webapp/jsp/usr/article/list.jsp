@@ -6,11 +6,9 @@
     List<ArticleDto> articles = (List<ArticleDto>)request.getAttribute("articles");
 %>
 
-    <!-- 테일윈드 불러오기 -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
+    <%@ include file="../common/head.jspf" %>
     <!--  보통 구역은 섹션으로 나눈다  -->
-    <section class="article-list-wrap">
+    <section class="article-list-wrap mt-[10px]">
 <!--       container는 창크기가 커져도 글자 알아서줄여줌, mx-auto는 중앙정렬 -->
         <div class="container mx-auto">
 <!--            font 굵게, 텍스트 크게-->
@@ -40,4 +38,4 @@
             </ul>
         </div>
     </section>
-
+    <%@ include file="../common/foot.jspf" %>

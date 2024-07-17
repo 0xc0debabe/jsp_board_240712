@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.hmw.jsp.board.article.ArticleDto"%>
 
-<%
-ArticleDto article = (ArticleDto) request.getAttribute("article");
-%>
 
-
-
-<h1>게시물 수정</h1>
 
 <script>
     function ArticleSave__submitForm(form) {
@@ -30,24 +24,31 @@ ArticleDto article = (ArticleDto) request.getAttribute("article");
     }
 </script>
 
-<form method="POST" onsubmit="ArticleSave__submitForm(this); return false;">
-    <div>
-        <span>제목</span>
-        <div>
-            <input name="title" type="text" maxlength="50" placeholder="제목을 입력해주세요." value="<%=article.getTitle()%>">
-        </div>
-    </div>
+<%@ include file="../common/head.jspf" %>
 
-    <div>
-        <span>내용</span>
-        <div>
-            <textarea name="body" cols="30" rows="10" placeholder="내용을 입력해주세요."><%=article.getBody()%></textarea>
-        </div>
-    </div>
+<section class="article-modify-wrap">
+    <div class="container mx-auto">
+        <form method="POST" onsubmit="ArticleSave__submitForm(this); return false;">
+            <div>
+                <span>제목</span>
+                <div>
+                    <input name="title" type="text" maxlength="50" placeholder="제목을 입력해주세요." value="${article.title}">
+                </div>
+            </div>
 
-    <div style="display:flex; gap: 0 5px; margin-top: 5px">
-        <button type="submit">수정</button>
-        <a href="/usr/article/list">취소</a>
-    </div>
+            <div>
+                <span>내용</span>
+                <div>
+                    <textarea name="body" cols="30" rows="10" placeholder="내용을 입력해주세요."><${article.body}></textarea>
+                </div>
+            </div>
 
-</form>
+            <div class="flex gap-x-[5px] mt-[5px]">
+            <button type="submit">수정</button>
+                <a href="/usr/article/list">취소</a>
+            </div>
+
+        </form>
+    </div>
+</section>
+<%@ include file="../common/foot.jspf" %>
