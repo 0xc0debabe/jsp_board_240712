@@ -48,6 +48,38 @@ public class Rq {
         }
     }
 
+    public void replace(String url, String msg) {
+        if (msg != null && !msg.trim().isEmpty()) {
+            println("""
+                    <script>
+                        alert("%s");
+                    </script>
+                    """.formatted(msg));
+        }
+
+        println("""
+                    <script>
+                        location.replace("%s")
+                    </script>
+                    """.formatted(url));
+    }
+
+    public void historyBack(String msg) {
+        if (msg != null && !msg.trim().isEmpty()) {
+            println("""
+                    <script>
+                        alert("%s");
+                    </script>
+                    """.formatted(msg));
+        }
+
+        println("""
+                    <script>
+                        history.back();
+                    </script>
+                    """);
+    }
+
     public void println(String str) {
         print(str + "\n");
     }
@@ -110,5 +142,15 @@ public class Rq {
         } catch (ArrayIndexOutOfBoundsException e) {
             return defaultValue;
         }
+    }
+
+    public String getRouteMethod() {
+        String method = getParam("_method", "");
+
+        if (!method.isEmpty()) {
+            return method.toUpperCase();
+        }
+
+        return req.getMethod();
     }
 }
